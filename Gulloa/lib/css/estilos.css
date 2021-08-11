@@ -1,0 +1,41 @@
+﻿
+
+.titulo {
+    font-family: Math Serif Bold;
+    text-align:center;
+    margin-top:20px;
+
+}
+
+.tituloscomo {
+    font-family: Math Serif Bold;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.divdistacia {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+p {
+    font-family: Script a;
+    font-size: 19px;
+}
+
+
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 60px; /* Height of the footer */
+    background: #6cf;
+}
+
+.centrardiv {
+    
+    text-align: center;
+    margin-top: 20px;
+}
+

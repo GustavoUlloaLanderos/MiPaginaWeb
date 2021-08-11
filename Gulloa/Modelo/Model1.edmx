@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BaseDatosGulloaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="id_persona" />
+          </Key>
+          <Property Name="id_persona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="pass" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="edad" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Registro">
+          <Key>
+            <PropertyRef Name="id_registro" />
+          </Key>
+          <Property Name="id_registro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_persona" Type="int" Nullable="false" />
+          <Property Name="fk_rol" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_rol" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="id_solicitud" />
+          </Key>
+          <Property Name="id_solicitud" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="asunto" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="mensaje" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <Association Name="registro_persona">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="id_persona" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="fk_persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="registro_rol">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="1" />
+          <End Role="Registro" Type="Self.Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="fk_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BaseDatosGulloaModelStoreContainer">
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Registro" EntityType="Self.Registro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Solicitud" EntityType="Self.Solicitud" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="registro_persona" Association="Self.registro_persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <AssociationSet Name="registro_rol" Association="Self.registro_rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BaseDatosGulloaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BaseDatosGulloaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Persona" EntityType="BaseDatosGulloaModel.Persona" />
+          <EntitySet Name="Registro" EntityType="BaseDatosGulloaModel.Registro" />
+          <EntitySet Name="Rol" EntityType="BaseDatosGulloaModel.Rol" />
+          <AssociationSet Name="registro_persona" Association="BaseDatosGulloaModel.registro_persona">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <AssociationSet Name="registro_rol" Association="BaseDatosGulloaModel.registro_rol">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Registro" EntitySet="Registro" />
+          </AssociationSet>
+          <EntitySet Name="Solicitud" EntityType="BaseDatosGulloaModel.Solicitud" />
+        </EntityContainer>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="id_persona" />
+          </Key>
+          <Property Name="id_persona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="pass" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="edad" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Registro" Relationship="BaseDatosGulloaModel.registro_persona" FromRole="Persona" ToRole="Registro" />
+        </EntityType>
+        <EntityType Name="Registro">
+          <Key>
+            <PropertyRef Name="id_registro" />
+          </Key>
+          <Property Name="id_registro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_persona" Type="Int32" Nullable="false" />
+          <Property Name="fk_rol" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Persona" Relationship="BaseDatosGulloaModel.registro_persona" FromRole="Registro" ToRole="Persona" />
+          <NavigationProperty Name="Rol" Relationship="BaseDatosGulloaModel.registro_rol" FromRole="Registro" ToRole="Rol" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="id_rol" />
+          </Key>
+          <Property Name="id_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_rol" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Registro" Relationship="BaseDatosGulloaModel.registro_rol" FromRole="Rol" ToRole="Registro" />
+        </EntityType>
+        <Association Name="registro_persona">
+          <End Type="BaseDatosGulloaModel.Persona" Role="Persona" Multiplicity="1" />
+          <End Type="BaseDatosGulloaModel.Registro" Role="Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="id_persona" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="fk_persona" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="registro_rol">
+          <End Type="BaseDatosGulloaModel.Rol" Role="Rol" Multiplicity="1" />
+          <End Type="BaseDatosGulloaModel.Registro" Role="Registro" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="id_rol" />
+            </Principal>
+            <Dependent Role="Registro">
+              <PropertyRef Name="fk_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Solicitud">
+          <Key>
+            <PropertyRef Name="id_solicitud" />
+          </Key>
+          <Property Name="id_solicitud" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="asunto" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="mensaje" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BaseDatosGulloaModelStoreContainer" CdmEntityContainer="BaseDatosGulloaEntities">
+          <EntitySetMapping Name="Persona">
+            <EntityTypeMapping TypeName="BaseDatosGulloaModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="edad" ColumnName="edad" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="id_persona" ColumnName="id_persona" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Registro">
+            <EntityTypeMapping TypeName="BaseDatosGulloaModel.Registro">
+              <MappingFragment StoreEntitySet="Registro">
+                <ScalarProperty Name="fk_rol" ColumnName="fk_rol" />
+                <ScalarProperty Name="fk_persona" ColumnName="fk_persona" />
+                <ScalarProperty Name="id_registro" ColumnName="id_registro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="BaseDatosGulloaModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="nombre_rol" ColumnName="nombre_rol" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Solicitud">
+            <EntityTypeMapping TypeName="BaseDatosGulloaModel.Solicitud">
+              <MappingFragment StoreEntitySet="Solicitud">
+                <ScalarProperty Name="mensaje" ColumnName="mensaje" />
+                <ScalarProperty Name="asunto" ColumnName="asunto" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_solicitud" ColumnName="id_solicitud" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
